@@ -1,8 +1,11 @@
+## Skeleton for building and shipping restful APIs with Docker
 
-# build docker image
-# docker build --force-rm=true -t neural_machines .
+### Build docker image
 
-# run docker image
-# docker run -p 5001:5000 -d neural_machines
+	docker build --force-rm=true -t neuralmachines .
 
-# The service should be running at localhost:5000/prediction
+### Run docker image
+
+	docker run -p 5001:5000 -d neuralmachines
+
+The service should be now running at: localhost:5000/hello
