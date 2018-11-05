@@ -1,26 +1,17 @@
-FROM ubuntu:12.04
+FROM ubuntu:16.04
 
-# get up pip, vim, etc.
-RUN apt-get -y update --fix-missing  
-RUN apt-get install -y python-pip python-dev libev4 libev-dev gcc libxslt-dev libxml2-dev libffi-dev vim curl 
+RUN apt-get update && apt-get install -y wget ca-certificates \
+    git curl vim python3-dev python3-pip \
+    libfreetype6-dev libpng12-dev libhdf5-dev
 
-# Install pip
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-	python get-pip.py && \
-	rm get-pip.py
+RUN pip3 install --upgrade pip
+RUN pip3 install numpy pandas==0.23.4 scikit-learn==0.20.0 matplotlib seaborn jupyter stop-words
+RUN pip3 install keras
+RUN pip3 install theano
+RUN pip3 install flask-restful
 
-RUN pip --no-cache-dir install --upgrade pip
-
-# get numpy, scipy, scikit-learn and flask
-RUN apt-get install -y python-numpy python-scipy  
-RUN pip install scikit-learn  
-RUN pip install flask-restful
-
-# add our project
 ADD . /
 
-# expose the port for the API
-EXPOSE 5000
+EXPOSE 80
 
-# run the API 
-CMD [ "python", "/main.py" ] 
+CMD [ "python3", "/main.py" ]
